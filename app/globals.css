@@ -1,26 +1,802 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Sans:wght@400;500;600;700;800&display=swap');
+
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #0b0b0b;
+  --card: #151515;
+  --red: #f04438;
+  --white: #f6f6f6;
+  --muted: #999;
+  --line: #292929;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--white);
+  font-family: "DM Sans", sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 4px;
+}
+
+.navbar {
+  height: 82px;
+  padding: 0 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  background: #0b0b0b;
+  border-bottom: 1px solid #222;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  white-space: nowrap;
+}
+
+.logo span {
+  color: var(--red);
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+
+.nav-links a,
+.footer > a:not(.logo) {
+  font-size: 11px;
+  color: #c5c5c5;
+  font-weight: 700;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover,
+.footer > a:hover {
+  color: var(--red);
+}
+
+.nav-cta {
+  background: var(--red);
+  padding: 14px 19px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.nav-cta:hover,
+.btn-primary:hover {
+  background: #d52d24;
+}
+
+.hero {
+  min-height: 660px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 90px 10%;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, #090909 0%, rgba(9,9,9,.92) 30%, rgba(9,9,9,.45) 68%, rgba(9,9,9,.3) 100%),
+    url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1800&q=85") center 45% / cover no-repeat;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(0deg, var(--bg), transparent 20%, transparent 85%, #090909);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 650px;
+}
+
+.eyebrow {
+  color: var(--red);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  margin-bottom: 22px;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Barlow Condensed", Impact, sans-serif;
+  font-weight: 800;
+  line-height: 0.98;
+}
+
+.hero h1 {
+  font-size: clamp(68px, 9vw, 115px);
+  letter-spacing: -1px;
+}
+
+.hero h1 span,
+h2 span {
+  color: var(--red);
+}
+
+.hero-text {
+  color: #c1c1c1;
+  max-width: 410px;
+  font-size: 14px;
+  line-height: 1.9;
+  margin: 27px 0;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 13px;
+}
+
+.btn-primary,
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 49px;
+  padding: 0 23px;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  font-weight: 800;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-primary {
+  color: white;
+  background: var(--red);
+}
+
+.btn-outline {
+  border-color: #666;
+  color: white;
+  background: transparent;
+}
+
+.btn-outline:hover {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.hero-note {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: #aaa;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  margin-top: 45px;
+}
+
+.live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--red);
+}
+
+.hero-index {
+  position: absolute;
+  right: 7%;
+  bottom: 50px;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #aaa;
+  z-index: 1;
+}
+
+.hero-index span {
+  color: var(--red);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 29px 9%;
+  border-bottom: 1px solid var(--line);
+  border-top: 1px solid var(--line);
+  gap: 20px;
+}
+
+.stats div {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.stats strong {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 34px;
+  color: var(--red);
+}
+
+.stats span {
+  color: #bbb;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.section {
+  padding: 110px 9%;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 35px;
+  margin-bottom: 44px;
+}
+
+.section-heading h2,
+.feature h2,
+.bmi-copy h2,
+.final-cta h2 {
+  font-size: clamp(48px, 6vw, 75px);
+  line-height: 0.98;
+}
+
+.section-description {
+  max-width: 320px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+.level-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.level-tab {
+  padding: 12px 22px;
+  color: #aaa;
+  background: #151515;
+  border: 1px solid var(--line);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.level-tab.active {
+  background: var(--red);
+  color: white;
+  border-color: var(--red);
+}
+
+.workout-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.workout-card {
+  padding: 30px 26px;
+  min-height: 245px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  transition: transform 0.25s, border-color 0.25s;
+}
+
+.workout-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--red);
+}
+
+.workout-number {
+  color: #333;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 42px;
+  font-weight: 800;
+}
+
+.workout-day {
+  margin: 17px 0 13px;
+  color: var(--red);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.workout-card h3 {
+  font-size: 30px;
+}
+
+.workout-detail {
+  font-size: 11px;
+  color: #999;
+  line-height: 1.8;
+  margin-top: 13px;
+}
+
+.workout-bottom {
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+  margin-top: 23px;
+  display: flex;
+  justify-content: space-between;
+  color: #aaa;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.workout-bottom span:last-child {
+  color: var(--red);
+  font-size: 17px;
+}
+
+.small-note {
+  color: #777;
+  font-size: 10px;
+  line-height: 1.8;
+  margin-top: 22px;
+}
+
+.feature {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 440px;
+  background: #111;
+}
+
+.feature-image {
+  min-height: 380px;
+  background:
+    linear-gradient(rgba(0,0,0,.18), rgba(0,0,0,.18)),
+    url("https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=1100&q=85") center / cover no-repeat;
+}
+
+.feature-content {
+  padding: 75px 12%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.feature-content > p:not(.eyebrow) {
+  color: #aaa;
+  font-size: 13px;
+  line-height: 1.9;
+  max-width: 390px;
+  margin: 25px 0;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.price-card {
+  background: #141414;
+  border: 1px solid var(--line);
+  padding: 34px 28px;
+  position: relative;
+}
+
+.price-card.featured {
+  border-color: var(--red);
+}
+
+.popular-label {
+  background: var(--red);
+  color: white;
+  padding: 9px 12px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.price-name {
+  font-size: 11px;
+  letter-spacing: 2px;
+  font-weight: 800;
+  color: #aaa;
+}
+
+.price-card h3 {
+  font-family: "DM Sans", sans-serif;
+  font-size: clamp(26px, 3vw, 35px);
+  margin-top: 25px;
+  white-space: nowrap;
+}
+
+.price-card h3 span {
+  font-size: 11px;
+  color: var(--red);
+}
+
+.price-card h3 small {
+  font-size: 10px;
+  font-weight: 500;
+  color: #888;
+}
+
+.price-divider {
+  height: 1px;
+  background: var(--line);
+  margin: 25px 0;
+}
+
+.price-card ul {
+  list-style: none;
+  min-height: 130px;
+}
+
+.price-card li {
+  color: #aaa;
+  font-size: 11px;
+  line-height: 2.8;
+}
+
+.price-card li span {
+  color: var(--red);
+  margin-right: 7px;
+}
+
+.price-btn {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.bmi-section {
+  padding: 95px 10%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 70px;
+  background: #131313;
+}
+
+.bmi-copy > p:not(.eyebrow) {
+  max-width: 430px;
+  color: #aaa;
+  font-size: 13px;
+  line-height: 1.9;
+  margin-top: 25px;
+}
+
+.bmi-card {
+  padding: 35px;
+  background: #0b0b0b;
+  border: 1px solid #292929;
+}
+
+.bmi-card label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #ccc;
+}
+
+.bmi-card input {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 22px;
+  background: #171717;
+  border: 1px solid #333;
+  color: white;
+}
+
+.bmi-card input:focus {
+  outline: 1px solid var(--red);
+}
+
+.bmi-button {
+  width: 100%;
+}
+
+.bmi-result {
+  margin-top: 24px;
+  border-top: 1px solid #333;
+  padding-top: 20px;
+}
+
+.bmi-result strong {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 48px;
+  color: var(--red);
+}
+
+.bmi-result p {
+  font-size: 12px;
+  margin: 7px 0;
+}
+
+.bmi-result small,
+.bmi-error {
+  color: #aaa;
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+.bmi-error {
+  color: #ff7770;
+  margin-top: 15px;
+}
+
+.final-cta {
+  padding: 100px 20px;
+  text-align: center;
+  background:
+    linear-gradient(rgba(0,0,0,.84), rgba(0,0,0,.9)),
+    url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1400&q=80") center / cover;
+}
+
+.final-cta h2 {
+  margin-bottom: 32px;
+}
+
+.footer {
+  padding: 40px 8%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.footer > p {
+  font-size: 9px;
+  color: #777;
+  letter-spacing: 1px;
+}
+
+.footer .copyright {
+  width: 100%;
+  border-top: 1px solid var(--line);
+  padding-top: 20px;
+}
+
+@media (min-width: 1500px) {
+  main {
+    max-width: 1800px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 900px) {
+  .navbar {
+    padding: 0 4%;
+  }
+
+  .nav-links {
+    gap: 14px;
+  }
+
+  .nav-links a {
+    font-size: 10px;
+  }
+
+  .hero {
+    padding: 85px 7%;
+  }
+
+  .section {
+    padding: 80px 6%;
+  }
+
+  .stats {
+    padding: 25px 5%;
+  }
+
+  .stats span {
+    font-size: 8px;
+  }
+
+  .bmi-section {
+    padding: 75px 6%;
+    gap: 35px;
+  }
+
+  .price-card {
+    padding: 28px 18px;
+  }
+}
+
+@media (max-width: 650px) {
+  .navbar {
+    min-height: 72px;
+    height: auto;
+    padding: 15px 5%;
+    flex-wrap: wrap;
+    gap: 13px;
+  }
+
+  .logo {
+    font-size: 23px;
+  }
+
+  .nav-cta {
+    padding: 12px;
+  }
+
+  .nav-links {
+    order: 3;
+    width: 100%;
+    overflow-x: auto;
+    gap: 22px;
+    padding: 8px 0 3px;
+  }
+
+  .nav-links a {
+    white-space: nowrap;
+  }
+
+  .hero {
+    min-height: 610px;
+    padding: 80px 6%;
+    background-position: 58% center;
+  }
+
+  .hero h1 {
+    font-size: clamp(60px, 15vw, 90px);
+  }
+
+  .hero-text {
+    max-width: 320px;
+  }
+
+  .hero-index {
+    right: 6%;
+    bottom: 25px;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px 15px;
+    padding: 25px 6%;
+  }
+
+  .stats strong {
+    font-size: 28px;
+  }
+
+  .section {
+    padding: 70px 6%;
+  }
+
+  .section-heading {
+    display: block;
+    margin-bottom: 30px;
+  }
+
+  .section-heading h2,
+  .feature h2,
+  .bmi-copy h2,
+  .final-cta h2 {
+    font-size: 53px;
+  }
+
+  .section-description {
+    margin-top: 20px;
+  }
+
+  .level-tabs {
+    gap: 7px;
+  }
+
+  .level-tab {
+    flex: 1;
+    padding: 12px 5px;
+    font-size: 10px;
+  }
+
+  .workout-grid,
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .workout-card {
+    min-height: 0;
+  }
+
+  .feature {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-image {
+    min-height: 300px;
+  }
+
+  .feature-content {
+    padding: 55px 7%;
+  }
+
+  .price-card h3 {
+    font-size: 36px;
+  }
+
+  .price-card ul {
+    min-height: auto;
+  }
+
+  .bmi-section {
+    grid-template-columns: 1fr;
+    padding: 70px 6%;
+    gap: 35px;
+  }
+
+  .bmi-card {
+    padding: 25px 20px;
+  }
+
+  .final-cta {
+    padding: 80px 15px;
+  }
+
+  .footer {
+    padding: 35px 6%;
+  }
+
+  .footer > p:not(.copyright) {
+    order: 3;
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }
